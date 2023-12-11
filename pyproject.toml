@@ -55,7 +55,7 @@ testing = ["pytest"]
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md", "AUTHORS.md", "CHANGES.md"], content-type="text/markdown"}
-version = {attr = "landlab_regrid.__version__"}
+version = {attr = "landlab_regrid._version.__version__"}
 
 [tool.pytest.ini_options]
 minversion = "6.0"
