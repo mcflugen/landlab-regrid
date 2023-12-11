@@ -3,20 +3,28 @@ import numpy as np
 from landlab.graph.quantity.ext.of_element import count_of_children_at_parent
 
 
-def create_grid(grid):
-    max_index = np.asarray(grid.shape)
+def create_grid(grid, point="node"):
+    if point not in ("node", "corner"):
+        raise ValueError(
+            f"'point' keyword must be one of 'node' or 'corner' (got {point})"
+        )
+
+    if point == "node":
+        rows_cols = grid.shape
+    else:
+        rows_cols = (grid.shape[0] - 1, grid.shape[1] - 1)
 
     esmpy_grid = esmpy.Grid(
-        max_index,
+        np.asarray(rows_cols),
         staggerloc=[esmpy.StaggerLoc.CENTER],
         coord_sys=esmpy.CoordSys.CART,
         coord_typekind=esmpy.TypeKind.R8,
     )
 
     x = esmpy_grid.get_coords(0)
-    x[:] = grid.x_of_node.reshape(grid.shape)
+    x[:] = getattr(grid, f"x_of_{point}").reshape(rows_cols)
     y = esmpy_grid.get_coords(1)
-    y[:] = grid.y_of_node.reshape(grid.shape)
+    y[:] = getattr(grid, f"y_of_{point}").reshape(rows_cols)
 
     return esmpy_grid
 
