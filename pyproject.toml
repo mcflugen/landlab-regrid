@@ -49,10 +49,6 @@ changelog = "https://github.com/mcflugen/landlab-regrid/blob/main/CHANGES.md"
 dev = ["nox"]
 testing = ["pytest"]
 
-# [tool.setuptools.packages.find]
-# where = ["."]
-# include = ["gflex*"]
-
 [tool.setuptools.dynamic]
 readme = {file = ["README.md", "AUTHORS.md", "CHANGES.md"], content-type="text/markdown"}
 version = {attr = "landlab_regrid._version.__version__"}

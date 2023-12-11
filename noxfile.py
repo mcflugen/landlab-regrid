@@ -64,7 +64,7 @@ def clean(session):
         with session.chdir(folder):
             shutil.rmtree("build", ignore_errors=True)
             shutil.rmtree("build/wheelhouse", ignore_errors=True)
-            shutil.rmtree("landlab_regrid.egg-info", ignore_errors=True)
+            shutil.rmtree("src/landlab_regrid.egg-info", ignore_errors=True)
             shutil.rmtree(".pytest_cache", ignore_errors=True)
             shutil.rmtree(".venv", ignore_errors=True)
 
