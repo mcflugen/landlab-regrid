@@ -1,0 +1,2 @@
+  include .pre-commit-config.yaml
+  include noxfile.py
