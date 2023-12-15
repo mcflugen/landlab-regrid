@@ -1,72 +1,100 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "landlab-regrid"
+name = "landlab_regrid"
+requires-python = ">=3.10"
 description = "Regridders for landlab grids."
+keywords = [
+    "esmf",
+    "landlab",
+    "python",
+    "regrid",
+    "utility",
+]
 authors = [
-  {email = "mcflugen@gmail.com"},
-  {name = "Eric Hutton"},
+    { email = "mcflugen@gmail.com" },
+    { name = "Eric Hutton" },
 ]
 maintainers = [
-  {email = "mcflugen@gmail.com"},
-  {name = "Eric Hutton"},
+    { email = "mcflugen@gmail.com" },
+    { name = "Eric Hutton" },
 ]
-keywords = [
-  "landlab",
-  "python",
-  "regrid",
-  "utility",
-]
-license = {text = "MIT"}
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Operating System :: OS Independent",
-  "Topic :: Scientific/Engineering :: Physics",
-  "License :: OSI Approved :: MIT License",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
 ]
-requires-python = ">=3.10"
 dependencies = [
-	"numpy",
+    "numpy",
 ]
-dynamic = ["readme", "version"]
+dynamic = [
+    "readme",
+    "version",
+]
+
+[project.license]
+text = "MIT"
 
 [project.urls]
-homepage = "https://github.com/mcflugen/landlab-regrid"
-documentation = "https://github.com/mcflugen/landlab-regrid/blob/main/README.md"
-repository = "https://github.com/mcflugen/landlab-regrid"
 changelog = "https://github.com/mcflugen/landlab-regrid/blob/main/CHANGES.md"
+documentation = "https://github.com/mcflugen/landlab-regrid/blob/main/README.md"
+homepage = "https://github.com/mcflugen/landlab-regrid"
+repository = "https://github.com/mcflugen/landlab-regrid"
 
 [project.optional-dependencies]
-dev = ["nox"]
-testing = ["pytest"]
+dev = [
+    "nox",
+]
+testing = [
+    "pytest",
+]
 
-[tool.setuptools.dynamic]
-readme = {file = ["README.md", "AUTHORS.md", "CHANGES.md"], content-type="text/markdown"}
-version = {attr = "landlab_regrid._version.__version__"}
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic.version]
+attr = "landlab_regrid._version.__version__"
+
+[tool.setuptools.dynamic.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-testpaths = ["tests", "src"]
-norecursedirs = [".*", "*.egg*", "build", "dist", "utilities"]
-addopts = """
-  --ignore setup.py
-  --tb native
-  --strict
-  --durations 16
-  --doctest-modules
-  -vvv
-"""
+testpaths = [
+    "tests",
+    "src",
+]
+norecursedirs = [
+    ".*",
+    "*.egg*",
+    "build",
+    "dist",
+    "utilities",
+]
+addopts = [
+    "--ignore=setup.py",
+    "--tb=native",
+    "--strict",
+    "--durations=16",
+    "--doctest-modules",
+    "-vvv",
+]
 doctest_optionflags = [
-  "NORMALIZE_WHITESPACE",
-  "IGNORE_EXCEPTION_DETAIL",
-  "ALLOW_UNICODE"
+    "NORMALIZE_WHITESPACE",
+    "IGNORE_EXCEPTION_DETAIL",
+    "ALLOW_UNICODE",
 ]
