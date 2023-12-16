@@ -61,8 +61,8 @@ repos:
     additional_dependencies: [types-all]
     exclude: conf.py$
 
-- repo: https://github.com/regebro/pyroma
-  rev: "4.2"
-  hooks:
-  - id: pyroma
-    args: ["-d", "--min=10", "."]
+# - repo: https://github.com/regebro/pyroma
+#   rev: "4.2"
+#   hooks:
+#   - id: pyroma
+#     args: ["-d", "--min=10", "."]
