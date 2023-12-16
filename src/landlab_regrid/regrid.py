@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import esmpy
 from esmpy.api.constants import MeshLoc
 from esmpy.api.constants import RegridMethod

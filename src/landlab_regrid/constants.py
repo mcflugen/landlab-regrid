@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 from typing import Any
 
@@ -11,8 +13,8 @@ class UnmappedAction(Enum):
 
 
 UNMAPPED_ACTIONS: dict[str, UnmappedAction] = {
-    "raise": UnmappedAction.RAISE,
-    "ignore": UnmappedAction.IGNORE,
+    "raise": _UnmappedAction.ERROR,
+    "ignore": _UnmappedAction.IGNORE,
 }
 
 
@@ -29,8 +31,8 @@ def find_unmapped_action(value: str | UnmappedAction | None) -> UnmappedAction |
 
 
 def find_extrapolation_method(
-    value: str | "_ExtrapolationMethod",
-) -> "_ExtrapolationMethod":
+    value: str | _ExtrapolationMethod,
+) -> _ExtrapolationMethod:
     if isinstance(value, str):
         try:
             method = EXTRAPOLATION_METHODS[value]

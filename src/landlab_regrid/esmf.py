@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import esmpy
 import numpy as np
 from landlab.graph.quantity.ext.of_element import count_of_children_at_parent
