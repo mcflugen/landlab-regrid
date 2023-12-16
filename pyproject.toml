@@ -29,6 +29,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
 ]
 dependencies = [
+    "landlab",
     "numpy",
 ]
 dynamic = [
