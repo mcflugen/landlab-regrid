@@ -17,31 +17,31 @@ class _Regridder:
         dst,
         unmapped: str | UnmappedAction = "ignore",
         extrapolate: str | _ExtrapolationMethod = "none",
-        from_: str = "node",
-        to: str = "node",
+        src_at: str = "node",
+        dst_at: str = "node",
     ):
         self._unmapped = find_unmapped_action(unmapped)
-        self._from = self._validate_location(from_)
-        self._to = self._validate_location(to)
+        self._src_at = self._validate_location(src_at)
+        self._dst_at = self._validate_location(dst_at)
 
         extrapolation_method = find_extrapolation_method(extrapolate)
 
         self._src_field = esmpy.Field(
             create(
                 src,
-                point="node" if from_ in ("node", "patch") else "corner",
+                point="node" if src_at in ("node", "patch") else "corner",
                 force_mesh=True,
             ),
-            meshloc=MeshLoc.NODE if from_ in ("node", "corner") else MeshLoc.ELEMENT,
+            meshloc=MeshLoc.NODE if src_at in ("node", "corner") else MeshLoc.ELEMENT,
         )
 
         self._dst_field = esmpy.Field(
             create(
                 dst,
-                point="node" if to in ("node", "patch") else "corner",
+                point="node" if dst_at in ("node", "patch") else "corner",
                 force_mesh=True,
             ),
-            meshloc=MeshLoc.NODE if to in ("node", "corner") else MeshLoc.ELEMENT,
+            meshloc=MeshLoc.NODE if dst_at in ("node", "corner") else MeshLoc.ELEMENT,
         )
 
         self._regrid = esmpy.Regrid(
@@ -67,11 +67,11 @@ class _Regridder:
         return self.regrid(values)
 
 
-class PatchRegridder(_Regridder):
+class BilinearRegridder(_Regridder):
     method = RegridMethod.BILINEAR
 
 
-class BilinearRegridder(_Regridder):
+class PatchRegridder(_Regridder):
     method = RegridMethod.PATCH
 
 
@@ -98,12 +98,12 @@ class ConserveRegridder(_Regridder):
         else:
             raise ValueError(f"order must be 1 or 2 ({order})")
 
-        from_ = kwds.get("from_", "node")
-        to = kwds.get("to", "node")
+        src_at = kwds.get("src_at", "node")
+        dst_at = kwds.get("dst_at", "node")
 
-        if from_ not in ("patch", "cell") or to not in ("patch", "cell"):
+        if src_at not in ("patch", "cell") or dst_at not in ("patch", "cell"):
             raise ValueError(
-                "both 'from_' and 'to' arguments must be either 'patch' or 'cell'"
+                "both 'src_at' and 'dst_at' arguments must be either 'patch' or 'cell'"
             )
 
         super().__init__(src, dst, **kwds)
