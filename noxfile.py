@@ -12,6 +12,7 @@ ROOT = pathlib.Path(__file__).parent
 @nox.session(python=PYTHON_VERSION, venv_backend="conda")
 def test(session: nox.Session) -> None:
     """Run the tests."""
+    session.conda_install("--file=requirements.in")
     session.install("-e", ".[testing]")
     session.run("pytest", "-vvv")
 
